@@ -1,7 +1,3 @@
-@push('styles')
-<link rel="stylesheet" href="{{ asset('assets/vendors/datatables/dataTables.bootstrap4.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/vendors/datatables/dataTable-select/css/select.bootstrap4.min.css') }}">
-@endpush
 <x-alert/>
 <section class="section">
     <div class="section-header">
@@ -16,6 +12,7 @@
         <div class="card">
             <div class="card-header">
                 <h4>{{ 'Daftar '.$title }}</h4>
+                @if ($create == null)
                 <div class="card-header-action">
                     <div>
                         <a href="{{ route($routeCreate) }}" class="btn btn-primary create-button"
@@ -24,6 +21,7 @@
                         </a>
                     </div>
                 </div>
+                @endif
             </div>
 
             <div class="card-body">
@@ -36,14 +34,6 @@
 </section>
 
 @push('scripts')
-
-<!-- Datatable -->
-<script src="{{ asset('assets/vendors/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('assets/vendors/datatables/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('assets/vendors/datatables/dataTable.button.min.js') }}"></script>
-<script src="{{ asset('assets/vendors/datatables/dataTable.button.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('assets/vendors/datatables/dataTable-select/js/select.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('vendor/datatables/buttons.server-side.js') }}"></script>
 <script>
     $(document).ready(function () {
         $(".create-button").click(function () {
@@ -66,6 +56,14 @@
             $('#resetModal').modal('show')
             $('#reset_id').val(rid)
             // alert(sid)
+        });
+
+        $(document).on('click', '.bukti-btn', function () {
+            var kid = $(this).val();
+            var bid = $('#biaya').val();
+            $('#buktiModal').modal('show')
+            $('.img').html(`<img src="{{asset('images/bukti/${kid}')}}" width="500" class="img-fluid">`)
+            $('.modal-header').html(`<h5 class="modal-title text-light" id="deleteModalExample">Total Biaya: Rp.${bid}</h5>`)
         });
     });
 </script>

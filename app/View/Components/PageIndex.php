@@ -6,16 +6,17 @@ use Illuminate\View\Component;
 
 class PageIndex extends Component
 {
-    public $title, $buttonLabel, $routeCreate;
+    public $title, $buttonLabel, $routeCreate, $routeParameter, $create;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($title, $buttonLabel, $routeCreate)
+    public function __construct($title, $buttonLabel, $routeCreate, $create = null)
     {
         $this->title = $title;
+        $this->create = $create;
         $this->routeCreate = $routeCreate;
         $this->buttonLabel = $buttonLabel;
     }

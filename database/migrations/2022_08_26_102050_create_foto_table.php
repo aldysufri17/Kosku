@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBiayaTable extends Migration
+class CreateFotoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateBiayaTable extends Migration
      */
     public function up()
     {
-        Schema::create('biaya', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('kos_id');
-            $table->integer('durasi');
-            $table->integer('harga');
+        Schema::create('foto', function (Blueprint $table) {
+            $table->id();
+            $table->string("image");
+            $table->foreignId("kamar_id")->constraint("kamar")->onDelete("cascade");
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateBiayaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('biaya');
+        Schema::dropIfExists('foto');
     }
 }

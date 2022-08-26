@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\fasilitas;
+use App\Models\Fasilitas;
 use Illuminate\Http\Request;
 
 class FasilitasController extends Controller
@@ -14,7 +14,8 @@ class FasilitasController extends Controller
      */
     public function index()
     {
-        //
+        $fasilitas = Fasilitas::all();
+        return view('backend.fasilitas.index', compact('fasilitas'));
     }
 
     /**
@@ -24,7 +25,7 @@ class FasilitasController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.fasilitas.add');
     }
 
     /**
@@ -35,7 +36,18 @@ class FasilitasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validations
+        $request->validate([
+            'nama'          => 'required',
+            'status'         => 'required',
+        ]);
+
+        Fasilitas::create([
+            'nama'          => $request->nama,
+            'status'         => $request->status,
+        ]);
+
+        return redirect()->route('fasilitas.index')->with('success', 'Fasilitas Berhasil ditambah!.');
     }
 
     /**
@@ -55,9 +67,10 @@ class FasilitasController extends Controller
      * @param  \App\Models\fasilitas  $fasilitas
      * @return \Illuminate\Http\Response
      */
-    public function edit(fasilitas $fasilitas)
+    public function edit($id)
     {
-        //
+        $fasilitas = Fasilitas::whereId($id)->first();
+        return view('backend.fasilitas.edit', compact('fasilitas'));
     }
 
     /**
@@ -67,9 +80,20 @@ class FasilitasController extends Controller
      * @param  \App\Models\fasilitas  $fasilitas
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, fasilitas $fasilitas)
+    public function update(Request $request, $id)
     {
-        //
+        // Validations
+        $request->validate([
+            'nama'          => 'required',
+            'status'         => 'required',
+        ]);
+
+        Fasilitas::whereId($id)->update([
+            'nama'          => $request->nama,
+            'status'         => $request->status,
+        ]);
+
+        return redirect()->route('fasilitas.index')->with('success', 'Fasilitas Berhasil diubah!.');
     }
 
     /**
@@ -78,8 +102,13 @@ class FasilitasController extends Controller
      * @param  \App\Models\fasilitas  $fasilitas
      * @return \Illuminate\Http\Response
      */
-    public function destroy(fasilitas $fasilitas)
+    public function destroy($id, Request $request)
     {
-        //
+        $delete = Fasilitas::whereId($request->delete_id)->delete();
+        if ($delete) {
+            return redirect()->route('fasilitas.index')->with('success', 'Fasilitas Berhasil dihapus!.');
+        } else {
+            return redirect()->back()->with('error', 'Fasilitas Gagal dihapus!.');
+        }
     }
 }

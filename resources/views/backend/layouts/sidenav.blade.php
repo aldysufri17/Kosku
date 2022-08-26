@@ -12,8 +12,9 @@
             <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Masters</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="{{route('pengguna.index')}}">Fasilitas</a></li>
-                    <li><a class="nav-link" href="{{route('pengguna.index')}}">Peraturan</a></li>
+                    <li><a class="nav-link" href="{{route('fasilitas.index')}}">Fasilitas Kos</a></li>
+                    <li><a class="nav-link" href="{{route('peraturan.index')}}">Peraturan Kos</a></li>
+                    <li><a class="nav-link" href="{{route('kos.index')}}">Informasi Rumah Kos</a></li>
                 </ul>
             </li>
             <li class="dropdown">
@@ -24,17 +25,17 @@
                 </ul>
             </li>
             <li class="dropdown">
-                <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Data Kos</span></a>
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Data Kamar</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="{{route('pengguna.index')}}">Kamar Kos</a></li>
-                    <li><a class="nav-link" href="{{route('pengguna.create')}}">Rumah Kos</a></li>
+                    <li><a class="nav-link" href="{{route('kamar.index')}}">Daftar Kamar</a></li>
+                    <li><a class="nav-link" href="{{route('kamar.create')}}">Tambah Kamar</a></li>
                 </ul>
             </li>
             <li class="dropdown">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Data Sewa Kos</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="{{route('pengguna.index')}}">Daftar Booking</a></li>
-                    <li><a class="nav-link" href="{{route('pengguna.create')}}">Riwayat Sewa</a></li>
+                    <li><a class="nav-link" href="{{route('transaksi.index')}}">Daftar Booking</a></li>
+                    <li><a class="nav-link" href="{{route('pengguna.kamar')}}">Daftar Pengguna Kamar</a></li>
                 </ul>
             </li>
         </ul>

@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
             'email' => 'admin@admin.com',
             'role_id' => 1,
             'status' => 1,
+            'telp'  => '08567567456456',
             'password' => bcrypt('secret'),
         ]);
 
@@ -30,6 +31,7 @@ class UserSeeder extends Seeder
             'email' => 'pemilik@admin.com',
             'role_id' => 2,
             'status' => 1,
+            'telp'  => '08567567456456',
             'password' => bcrypt('secret'),
         ]);
 
@@ -40,6 +42,7 @@ class UserSeeder extends Seeder
             'email' => 'pengunjung@admin.com',
             'role_id' => 3,
             'status' => 1,
+            'telp'  => '08567567456456',
             'password' => bcrypt('secret'),
         ]);
 

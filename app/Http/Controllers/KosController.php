@@ -2,84 +2,45 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Fasilitas;
 use App\Models\Kos;
+use App\Models\Peraturan;
 use Illuminate\Http\Request;
 
 class KosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $kos = Kos::first();
+        return view('backend.kos.index', compact('kos'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function update($id, Request $request)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Kos  $kos
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Kos $kos)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Kos  $kos
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Kos $kos)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Kos  $kos
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Kos $kos)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Kos  $kos
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Kos $kos)
-    {
-        //
+        $request->validate([
+            'nama'         => 'required',
+            'email'        => 'required',
+            'telp'         => 'required',
+            'alamat'       => 'required',
+            'deskripsi'    => 'required',
+            'cover'        => 'required',
+        ]);
+        $kos = Kos::whereid($id)->first();
+        if (file_exists(public_path() . '/images/' . $kos->cover)) {
+            unlink(public_path() . '/images/' . $kos->cover);
+        }
+        $cover = $request->cover;
+        $new_foto = 'hero-bg' . "." . $cover->getClientOriginalExtension();
+        $destination = 'images/';
+        $cover->move($destination, $new_foto);
+        Kos::whereId($id)->update([
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'telp' => $request->telp,
+            'alamat' => $request->alamat,
+            'deskripsi' => $request->deskripsi,
+            'cover' => $new_foto
+        ]);
+        return redirect()->route('kos.index')->with('success', 'Informasi Kos Berhasil diubah!.');
     }
 }

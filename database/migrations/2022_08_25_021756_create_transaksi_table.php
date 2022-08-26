@@ -16,13 +16,16 @@ class CreateTransaksiTable extends Migration
         Schema::create('transaksi', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('kode');
-            $table->integer('status');
+            $table->integer('status');  //0 = Favorit; 1 = Pengajuan; 2= cek pembayaran; 3= checkin
             $table->integer('user_id');
-            $table->integer('kos_id');
+            $table->integer('kamar_id');
             $table->string('durasi');
             $table->date('tgl_mulai');
             $table->date('tgl_selesai');
-            $table->integer('biaya');
+            $table->string('foto_ktp');
+            $table->string('foto_kk');
+            $table->string('foto_pembayaran')->nullable();
+            $table->string('biaya');
             $table->timestamps();
         });
     }

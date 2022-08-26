@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\peraturan;
+use App\Models\Peraturan;
 use Illuminate\Http\Request;
 
 class PeraturanController extends Controller
@@ -14,7 +14,8 @@ class PeraturanController extends Controller
      */
     public function index()
     {
-        //
+        $peraturan = Peraturan::all();
+        return view('backend.peraturan.index', compact('peraturan'));
     }
 
     /**
@@ -24,7 +25,7 @@ class PeraturanController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.peraturan.add');
     }
 
     /**
@@ -35,7 +36,18 @@ class PeraturanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validations
+        $request->validate([
+            'nama'          => 'required',
+            'status'         => 'required',
+        ]);
+
+        Peraturan::create([
+            'nama'          => $request->nama,
+            'status'         => $request->status,
+        ]);
+
+        return redirect()->route('peraturan.index')->with('success', 'Peraturan Berhasil ditambah!.');
     }
 
     /**
@@ -55,9 +67,10 @@ class PeraturanController extends Controller
      * @param  \App\Models\peraturan  $peraturan
      * @return \Illuminate\Http\Response
      */
-    public function edit(peraturan $peraturan)
+    public function edit($id)
     {
-        //
+        $peraturan = Peraturan::whereId($id)->first();
+        return view('backend.peraturan.edit', compact('peraturan'));
     }
 
     /**
@@ -67,9 +80,20 @@ class PeraturanController extends Controller
      * @param  \App\Models\peraturan  $peraturan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, peraturan $peraturan)
+    public function update(Request $request, $id)
     {
-        //
+        // Validations
+        $request->validate([
+            'nama'          => 'required',
+            'status'         => 'required',
+        ]);
+
+        Peraturan::whereId($id)->update([
+            'nama'          => $request->nama,
+            'status'         => $request->status,
+        ]);
+
+        return redirect()->route('peraturan.index')->with('success', 'Peraturan Berhasil diubah!.');
     }
 
     /**
@@ -78,8 +102,13 @@ class PeraturanController extends Controller
      * @param  \App\Models\peraturan  $peraturan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(peraturan $peraturan)
+    public function destroy($id, Request $request)
     {
-        //
+        $delete = Peraturan::whereId($request->delete_id)->delete();
+        if ($delete) {
+            return redirect()->route('peraturan.index')->with('success', 'Peraturan Berhasil dihapus!.');
+        } else {
+            return redirect()->back()->with('error', 'Peraturan Gagal dihapus!.');
+        }
     }
 }
