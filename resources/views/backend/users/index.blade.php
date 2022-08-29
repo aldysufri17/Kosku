@@ -9,7 +9,7 @@
                 <th>Nama</th>
                 <th>Email</th>
                 <th>Role</th>
-                <th>Status</th>
+                <th>Status Akun</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -20,21 +20,25 @@
                 <td>{{$data->email}}</td>
                 <td>{{$data->role->name}}</td>
                 <td>
-                    @if ($data->status == 0)
+                    @if ($data->aktif == 0)
                     <span class="badge badge-danger">Inactive</span>
-                    @elseif ($data->status == 1)
+                    @elseif ($data->aktif == 1)
                     <span class="badge badge-success">Active</span>
                     @endif
                 </td>
                 <td>
                     <div class="table-actions btn-group">
-                        @if ($data->status == 0)
-                        <a href="{{ route('pengguna.status', ['user_id' => encrypt($data->id), 'status' => 1]) }}"
+                        <a href="{{ route('pengguna.show', $data->id) }}"
+                            title="Detail" class="table-action btn btn-info mr-2" data-toggle="tooltip">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                        @if ($data->aktif == 0)
+                        <a href="{{ route('pengguna.aktif', ['user_id' => encrypt($data->id), 'aktif' => 1]) }}"
                             title="Inactive" class="table-action btn btn-success mr-2" data-toggle="tooltip">
                             <i class="fa fa-check"></i>
                         </a>
-                        @elseif ($data->status == 1)
-                        <a href="{{ route('pengguna.status', ['user_id' => encrypt($data->id), 'status' => 0]) }}"
+                        @elseif ($data->aktif == 1)
+                        <a href="{{ route('pengguna.aktif', ['user_id' => encrypt($data->id), 'aktif' => 0]) }}"
                             title="Active" class="table-action btn btn-danger mr-2" data-toggle="tooltip">
                             <i class="fa fa-ban"></i>
                         </a>

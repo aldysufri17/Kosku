@@ -1,5 +1,5 @@
 @extends('backend.layouts.app')
-@section('title','Detail Booking')
+@section('title','Daftar Pengguna')
 @section('content')
 <section class="section">
     <div class="section-header">
@@ -20,47 +20,55 @@
                 <h4>Data Detail Booking</h4>
             </div>
             <div class="card-body">
+                <div class="d-flex flex-column align-items-center text-center p-3 pt-2">
+                    <h4 class="text-center font-weight-bold text-dark">DETAIL PENGGUNA</h4>
+                    <img class="rounded-circle my-2" width="150px"
+                        src="{{ asset($user->foto ? 'images/user/'. $user->foto : 'backend/assets/img/avatar/avatar-1.png') }}">
+                        <h5>{{$user->name}}</h5>
+                </div>
                 <table class="table table-striped table-light table-bordered">
                     <tbody>
                         <tr>
-                            <th scope="row">Kode Booking</th>
-                            <td class="">{{$transaksi->kode}}</td>
+                            <th scope="row">Email</th>
+                            <td class="">{{$user->email}}</td>
                         </tr>
                         <tr>
-                            <th scope="row">Nama Pengguna</th>
-                            <td>{{$transaksi->user->name}}</td>
+                            <th scope="row">Jenis Kelamin</th>
+                            <td class="">{{auth()->user()->jk == 'L' ? 'Laki-Laki' : 'Perempuan'}}</td>
                         </tr>
                         <tr>
-                            <th scope="row">Nomer Kamar</th>
-                            <td>{{ $transaksi->kamar->pintu->nama }}</td>
+                            <th scope="row">Email</th>
+                            <td class="">
+                                @if (auth()->user()->pekerjaan == 'Mahasiswa')
+                                Mahasiswa
+                                @elseif(auth()->user()->pekerjaan == 'Bekerja')
+                                Bekerja
+                                @else
+                                Lainnya
+                                @endif
+                            </td>
                         </tr>
                         <tr>
-                            <th scope="row">Ukuran Kamar</th>
-                            <td>{{ $transaksi->kamar->ukuran }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Tgl Masuk</th>
-                            <td>{{ $transaksi->tgl_mulai }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Tgl Selesai</th>
-                            <td>{{ $transaksi->tgl_selesai }}</td>
+                            <th scope="row">Email</th>
+                            <td class="">
+                                @if (auth()->user()->status == '1')
+                                Belum Kawin
+                                @elseif(auth()->user()->status == '2')
+                                Kawin
+                                @elseif(auth()->user()->status == '3')
+                                Kawin Memiliki Anak
+                                @endif
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row">Bukti KTP</th>
-                            <td><button class="btn btn-primary ktp-btn" value="{{$transaksi->foto_ktp}}">Lihat</button></td>
+                            <td><button class="btn btn-primary ktp-btn" value="{{$user->foto_ktp}}">Lihat</button>
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row">Bukti Kartu Keluarga</th>
-                            <td><button class="btn btn-primary kk-btn" value="{{$transaksi->foto_kk}}">Lihat</button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Durasi Penggunaan</th>
-                            <td>{{ $transaksi->durasi }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Total Biaya</th>
-                            <td><span>Rp.{{ $transaksi->biaya }}</span></td>
+                            <td><button class="btn btn-primary kk-btn" value="{{$user->foto_kk}}">Lihat</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -90,7 +98,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content bgdark shadow-2-strong ">
                 <div class="modal-header bg-danger">
-                    <h5 class="modal-title text-light" id="deleteModalExample">Foto Kartu Keluarga</h5>       
+                    <h5 class="modal-title text-light" id="deleteModalExample">Foto Kartu Keluarga</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>

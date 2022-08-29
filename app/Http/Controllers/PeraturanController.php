@@ -39,12 +39,10 @@ class PeraturanController extends Controller
         // Validations
         $request->validate([
             'nama'          => 'required',
-            'status'         => 'required',
         ]);
 
         Peraturan::create([
             'nama'          => $request->nama,
-            'status'         => $request->status,
         ]);
 
         return redirect()->route('peraturan.index')->with('success', 'Peraturan Berhasil ditambah!.');
@@ -85,12 +83,10 @@ class PeraturanController extends Controller
         // Validations
         $request->validate([
             'nama'          => 'required',
-            'status'         => 'required',
         ]);
 
         Peraturan::whereId($id)->update([
             'nama'          => $request->nama,
-            'status'         => $request->status,
         ]);
 
         return redirect()->route('peraturan.index')->with('success', 'Peraturan Berhasil diubah!.');

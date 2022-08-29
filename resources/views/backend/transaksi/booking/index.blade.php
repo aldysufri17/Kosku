@@ -20,8 +20,8 @@
                 <td>{{$key+1}}</td>
                 <td>{{$data->kode}}</td>
                 <td>{{$data->user->name}}</td>
-                <td>{{$data->kamar->nomer}}</td>
-                <td>{{$data->durasi}}</td>
+                <td>{{$data->kamar->pintu->nama}}</td>
+                <td>{{$data->durasi}} Bulan</td>
                 <td>
                     <div class="table-actions btn-group">
                         <a href="{{route('transaksi.show', $data->id)}}" class="table-action btn btn-info mr-2" data-toggle="tooltip" title="Detail">
@@ -32,17 +32,17 @@
                             data-toggle="tooltip" title="Setujui Pengajuan">
                             <i class="fas fa-check"></i>
                         </a>
-                        <a href="{{route('transaksi.status', [$data->id, 7])}}" class="table-action btn btn-warning mr-2"
+                        <a href="{{route('transaksi.status', [$data->id, -1])}}" class="table-action btn btn-warning mr-2"
                             data-toggle="tooltip" title="Tolak Pengajuan">
                             <i class="fas fa-times"></i>
                         </a>
-                        @elseif($data->status == 3)
+                        @elseif($data->status == 2)
                         <a href="#" class="table-action btn btn-secondary mr-2"
                             data-toggle="tooltip" title="Konfimasi Pembayaran">
                             <i class="fas fa-tasks"></i>
                         </a>
                         <button disabled class="btn btn-secondary">Cek Bukti Pembayaran</button>
-                        @elseif($data->status == 2)
+                        @elseif($data->status == 3)
                         <a href="{{route('transaksi.status', [$data->id, 4])}}" class="table-action btn btn-success mr-2"
                             data-toggle="tooltip" title="Konfimasi Pembayaran">
                             <i class="fas fa-tasks"></i>
@@ -56,7 +56,7 @@
             @endforeach
         </tbody>
     </table>
-    @include('backend.transaksi.booking.transaksi-modal')
+    @include('backend.transaksi.transaksi-modal')
     @else
     <div class="align-items-center bg-light p-3 border-secondary rounded">
         <span class="">Oops!</span><br>

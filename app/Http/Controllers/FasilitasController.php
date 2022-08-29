@@ -39,12 +39,10 @@ class FasilitasController extends Controller
         // Validations
         $request->validate([
             'nama'          => 'required',
-            'status'         => 'required',
         ]);
 
         Fasilitas::create([
             'nama'          => $request->nama,
-            'status'         => $request->status,
         ]);
 
         return redirect()->route('fasilitas.index')->with('success', 'Fasilitas Berhasil ditambah!.');
@@ -85,12 +83,10 @@ class FasilitasController extends Controller
         // Validations
         $request->validate([
             'nama'          => 'required',
-            'status'         => 'required',
         ]);
 
         Fasilitas::whereId($id)->update([
             'nama'          => $request->nama,
-            'status'         => $request->status,
         ]);
 
         return redirect()->route('fasilitas.index')->with('success', 'Fasilitas Berhasil diubah!.');

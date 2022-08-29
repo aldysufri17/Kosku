@@ -31,7 +31,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::all();
+        $roles = Role::where('id', '>', 1)->get();
         return view('backend.users.add', compact('roles'));
     }
 
@@ -48,14 +48,39 @@ class UserController extends Controller
             'name'          => 'required',
             'email'         => 'required|unique:users,email',
             'status'        =>  'required|numeric|in:0,1',
-            'role'          =>  'required|numeric',
+            'aktif'          =>  'required',
+            'pekerjaan'          =>  'required',
+            'jk'          =>  'required',
+            'telp'          =>  'required',
         ]);
+
+        // $foto = Transaksi::whereId($request->id)->first();
+        // if (file_exists(public_path() . '/images/kk' . $foto->foto_kk)) {
+        //     unlink(public_path() . '/images/kk' . $foto->foto_kk);
+        // }
+        // $kk = $request->kk;
+        // $new_kk = 'KK' . "-" . Auth::user()->name . "." . $kk->getClientOriginalExtension();
+        // $destination = 'images/kk';
+        // $kk->move($destination, $new_kk);
+
+
+        // if (file_exists(public_path() . '/images/ktp' . $foto->foto_ktp)) {
+        //     unlink(public_path() . '/images/ktp' . $foto->foto_ktp);
+        // }
+        // $ktp = $request->ktp;
+        // $new_ktp = 'KTP' . "-" . Auth::user()->name . "." . $ktp->getClientOriginalExtension();
+        // $destination = 'images/ktp';
+        // $ktp->move($destination, $new_ktp);
 
         $user = User::create([
             'name'          => $request->name,
             'email'         => $request->email,
             'role_id'       => $request->role,
             'status'        => $request->status,
+            'aktif'         => $request->aktif,
+            'pekerjaan'      => $request->pekerjaan,
+            'jk'             => $request->jk,
+            'telp'             => $request->telp,
             'password'      => bcrypt('password')
         ]);
 
@@ -75,7 +100,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::whereId($id)->first();
+        return view('backend.users.detail', compact('user'));
     }
 
     /**
@@ -86,8 +112,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        $roles = Role::where('id', '>', 1)->get();
         $user = User::whereId($id)->first();
-        return view('backend.users.edit', compact('user'));
+        return view('backend.users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -99,17 +126,42 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // $foto = Transaksi::whereId($request->id)->first();
+        // if (file_exists(public_path() . '/images/kk' . $foto->foto_kk)) {
+        //     unlink(public_path() . '/images/kk' . $foto->foto_kk);
+        // }
+        // $kk = $request->kk;
+        // $new_kk = 'KK' . "-" . Auth::user()->name . "." . $kk->getClientOriginalExtension();
+        // $destination = 'images/kk';
+        // $kk->move($destination, $new_kk);
+
+
+        // if (file_exists(public_path() . '/images/ktp' . $foto->foto_ktp)) {
+        //     unlink(public_path() . '/images/ktp' . $foto->foto_ktp);
+        // }
+        // $ktp = $request->ktp;
+        // $new_ktp = 'KTP' . "-" . Auth::user()->name . "." . $ktp->getClientOriginalExtension();
+        // $destination = 'images/ktp';
+        // $ktp->move($destination, $new_ktp);
         // Validations
         $request->validate([
             'name'          => 'required',
-            'email'         => 'required|unique:users,email,' . $id . ',id',
+            'email'         => 'required|unique:users,email',
             'status'        =>  'required|numeric|in:0,1',
+            'aktif'          =>  'required',
+            'pekerjaan'          =>  'required',
+            'jk'          =>  'required',
+            'telp'          =>  'required',
         ]);
 
         $user = User::whereId($id)->update([
             'name'          => $request->name,
             'email'         => $request->email,
             'status'        => $request->status,
+            'aktif'         => $request->aktif,
+            'pekerjaan'      => $request->pekerjaan,
+            'jk'             => $request->jk,
+            'telp'             => $request->telp,
         ]);
 
         // Assign Role To User
@@ -126,26 +178,26 @@ class UserController extends Controller
      * @return List Page With Success
      * @author Shani Singh
      */
-    public function updateStatus($user_id, $status)
+    public function updateAktif($user_id, $aktif)
     {
         // Validation
         Validator::make([
             'user_id'   => $user_id,
-            'status'    => $status
+            'aktif'    => $aktif
         ], [
             'user_id'   =>  'required|exists:users,id',
-            'status'    =>  'required|in:0,1',
+            'aktif'    =>  'required|in:0,1',
         ]);
         $user_id = decrypt($user_id);
-        // Update Status
-        $user = User::whereId($user_id)->update(['status' => $status]);
+        // Update aktif
+        $user = User::whereId($user_id)->update(['aktif' => $aktif]);
 
         // Masssage
         if ($user) {
-            if ($status == 0) {
-                return redirect()->route('pengguna.index')->with('info', 'Status Pengguna Inactive!.');
+            if ($aktif == 0) {
+                return redirect()->route('pengguna.index')->with('info', 'Status Akun Pengguna Inactive!.');
             }
-            return redirect()->route('pengguna.index')->with('info', 'Status Pengguna Active!.');
+            return redirect()->route('pengguna.index')->with('info', 'Status Akun Pengguna Active!.');
         } else {
             return redirect()->route('pengguna.index')->with('error', 'Gagal diperbarui');
         }

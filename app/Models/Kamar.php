@@ -10,8 +10,13 @@ class Kamar extends Model
     use HasFactory;
     protected $table = "kamar";
     protected $guarded = [];
+
+    public function pintu()
+    {
+        return $this->belongsTo(Pintu::class);
+    }
     public function foto()
     {
-        return $this->hasMany(Image::class);
+        return $this->hasMany(Foto::class);
     }
 }

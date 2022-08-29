@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Fasilitas;
 use App\Models\Kos;
 use App\Models\Peraturan;
 use Illuminate\Http\Request;

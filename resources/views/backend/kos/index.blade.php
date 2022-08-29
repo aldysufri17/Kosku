@@ -1,6 +1,7 @@
 @extends('backend.layouts.app')
 @section('title','Informasi Rumah Kos')
 @section('content')
+<x-alert/>
 <section class="section">
     <div class="section-header">
         <h1>Informasi Rumah Kos</h1>

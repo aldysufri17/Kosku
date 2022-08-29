@@ -32,27 +32,23 @@
                         </tr>
                         <tr>
                             <th scope="row">Nomer Kamar</th>
-                            <td>{{ $transaksi->kamar->nomer }}</td>
+                            <td>{{ $transaksi->kamar->pintu->nama }}</td>
                         </tr>
                         <tr>
                             <th scope="row">Ukuran Kamar</th>
                             <td>{{ $transaksi->kamar->ukuran }}</td>
                         </tr>
                         <tr>
-                            <th scope="row">Tgl Masuk</th>
+                            <th scope="row">Tgl Mulai</th>
                             <td>{{ $transaksi->tgl_mulai }}</td>
                         </tr>
                         <tr>
-                            <th scope="row">Bukti KTP</th>
-                            <td><button class="btn btn-primary ktp-btn" value="{{$transaksi->foto_ktp}}">Lihat</button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Bukti Kartu Keluarga</th>
-                            <td><button class="btn btn-primary kk-btn" value="{{$transaksi->foto_kk}}">Lihat</button></td>
+                            <th scope="row">Tgl Selesai</th>
+                            <td>{{ $transaksi->tgl_selesai }}</td>
                         </tr>
                         <tr>
                             <th scope="row">Durasi Penggunaan</th>
-                            <td>{{ $transaksi->durasi }}</td>
+                            <td>{{ $transaksi->durasi }} Bulan</td>
                         </tr>
                         <tr>
                             <th scope="row">Total Biaya</th>
@@ -60,43 +56,6 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="ktpModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalExample"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content bgdark shadow-2-strong ">
-                <div class="modal-header bg-danger">
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body border-0 text-dark">
-                    <div class="img"></div>
-                </div>
-                <div class="modal-footer border-0">
-                    <button class="btn btn-primary" type="button" data-dismiss="modal">Oke</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="kkModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalExample"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content bgdark shadow-2-strong ">
-                <div class="modal-header bg-danger">
-                    <h5 class="modal-title text-light" id="deleteModalExample">Foto Kartu Keluarga</h5>       
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body border-0 text-dark">
-                    <div class="img"></div>
-                </div>
-                <div class="modal-footer border-0">
-                    <button class="btn btn-primary" type="button" data-dismiss="modal">Oke</button>
-                </div>
             </div>
         </div>
     </div>

@@ -6,8 +6,18 @@
         @csrf
         <div class="form-group row mb-0">
 
-            {{-- Name --}}
-            <x-form-input label="Nomor Pintu" type="text" required="required" name="nomer"></x-form-input>
+            <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
+                <span style="color:red;">*</span>Nomer Kamar</label>
+                <select class="form-control form-control-user @error('pintu_id') is-invalid @enderror" name="pintu_id">
+                    <option selected disabled>Nomer Kamar</option>
+                    @foreach ($pintu as $item)
+                    <option value="{{$item->id}}">{{$item->nama}}</option>
+                    @endforeach
+                </select>
+                @error('pintu_id')
+                <span class="text-danger">{{$message}}</span>
+                @enderror
+            </div>
 
             {{-- Status --}}
             <div class="col-sm-6 mb-3 mt-3 mb-sm-0">
@@ -81,13 +91,26 @@
         </div>
 
         <div class="form-imgaes mb-3">
-            <span style="color:red;">*</span>Foto</label>
-            <div class="input-group hdtuto control-group d-flex">
-                <input type="file" id="input-file-now-custom-3" class="form-control m-2" name="foto">
-                @error('foto')
-                <span class="text-danger">{{$message}}</span>
-                @enderror
+            <span style="color:red;">*</span>Cover Foto</label>
+            <input type="file" id="input-file-now-custom-3" required class="form-control m-2" name="cover">
+            @error('cover')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
+        </div>
+
+        <div class="form-imgaes mb-3">
+            <span style="color:red;">*</span>Multiple Foto</label>
+            <div class="input-group mb-3">
+                <input type="file" id="input-file-now-custom-3" class="form-control m-2" name="multiple[]" required>
             </div>
+            <div class="input-group mb-3">
+                <input type="file" id="input-file-now-custom-3" class="form-control m-2" name="multiple[]" required>
+                <button class="btn btn-success" type="button">Tambah Lain</button>
+            </div>
+            @error('multiple')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
+            <div class="clone"></div>
         </div>
 
         <div class="form-deskripsi mb-3">
@@ -133,6 +156,21 @@
         formatted = output.reverse().join("");
         return ("" + formatted + ((parts) ? "." + parts[1].substr(0, 2) : ""));
     };
+
+    $(document).ready(function () {
+        $("#rmv").hide();
+        $(".btn-success").click(function () {
+            $(".clone").append(`
+                <div class="input-group mb-3 hdtuto">
+                    <input type="file" id="input-file-now-custom-3" class="form-control m-2" name="multiple[]" required>
+                    <button class="btn btn-danger" id="rmv" type="button"><i class="fldemo glyphicon glyphicon-remove"></i> Hapus Form</button>
+                </div>
+            `)
+        });
+        $("body").on("click", "#rmv", function () {
+            $(this).parents(".hdtuto").remove();
+        });
+    });
 
 </script>
 @endpush

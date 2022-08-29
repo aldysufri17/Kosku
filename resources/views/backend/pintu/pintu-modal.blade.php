@@ -16,7 +16,7 @@
                     onclick="event.preventDefault(); document.getElementById('user-delete-form').submit();">
                     Oke
                 </a>
-                <form id="user-delete-form" method="POST" action="{{ route('kamar.destroy', $data->id) }}">
+                <form id="user-delete-form" method="POST" action="{{ route('pintu.destroy', ['pintu' => $data->id]) }}">
                     @csrf
                     @method('DELETE')
                     <input type="hidden" name="delete_id" id="delete_id">

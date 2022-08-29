@@ -93,10 +93,13 @@ class TransaksiController extends Controller
             Transaksi::whereId($id)->update([
                 'status' => 2
             ]);
+            Kamar::whereId($kamar_id)->update([
+                'status' => 2
+            ]);
             return redirect()->back()->with('success', 'Pengajuan Berhasil disetujui!.');
-        } elseif ($status == 7) {
+        } elseif ($status == -1) {
             Transaksi::whereId($id)->update([
-                'status' => 7
+                'status' => -1
             ]);
             return redirect()->back()->with('success', 'Pengajuan Berhasil ditolak!.');
         } elseif ($status == 4) {
@@ -107,12 +110,33 @@ class TransaksiController extends Controller
                 'status' => 1
             ]);
             return redirect()->back()->with('success', 'Konfirmasi Pembayaran Berhasil dilakukan!.');
+        } elseif ($status == 5) {
+            Transaksi::whereId($id)->update([
+                'status' => 5
+            ]);
+            return redirect()->back()->with('success', 'Pengajuan Perpanjang Berhasil dilakukan!.');
+        } elseif ($status == 6) {
+            Transaksi::whereId($id)->update([
+                'status' => 6
+            ]);
+            return redirect()->back()->with('success', 'Pengajuan Perpanjang Berhasil setujui!.');
+        } elseif ($status == 8) {
+            $tr = Transaksi::whereId($id)->first();
+            $mulai = $tr->tgl_selesai;
+            $durasi = "+" . $tr->durasi . "" . "month";
+            $selesai = date('Y-m-d', strtotime($durasi, strtotime($mulai)));
+            Transaksi::whereId($id)->update([
+                'status' => 8,
+                'tgl_mulai' => $mulai,
+                'tgl_selesai' => $selesai
+            ]);
+            return redirect()->back()->with('success', 'Pengajuan Perpanjang Berhasil setujui!.');
         }
     }
 
     public function daftarPengguna()
     {
-        $pengguna = Transaksi::where('status', 4)->get();
+        $pengguna = Transaksi::where('status', '>=', 4)->get();
         return view('backend.transaksi.pengguna.index', compact('pengguna'));
     }
 }

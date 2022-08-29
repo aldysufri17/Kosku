@@ -1,4 +1,24 @@
 {{-- Delete --}}
+<div class="modal fade" id="buktiModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalExample"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content bgdark shadow-2-strong ">
+            <div class="modal-header bg-danger">
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body border-0 text-dark">
+                <div class="img"></div>
+            </div>
+            <div class="modal-footer border-0">
+                <button class="btn btn-primary" type="button" data-dismiss="modal">Oke</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- Delete --}}
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalExample"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -16,9 +36,8 @@
                     onclick="event.preventDefault(); document.getElementById('user-delete-form').submit();">
                     Oke
                 </a>
-                <form id="user-delete-form" method="POST" action="{{ route('kamar.destroy', $data->id) }}">
+                <form id="user-delete-form" method="POST" action="{{ route('destroy.transaksi') }}">
                     @csrf
-                    @method('DELETE')
                     <input type="hidden" name="delete_id" id="delete_id">
                 </form>
             </div>

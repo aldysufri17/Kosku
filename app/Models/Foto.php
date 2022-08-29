@@ -10,8 +10,9 @@ class Foto extends Model
     use HasFactory;
     protected $table = "foto";
     protected $guarded = [];
+
     public function kamar()
     {
-        return $this->belongsTo(Post::class);
+        return $this->belongsTo(Kamar::class);
     }
 }

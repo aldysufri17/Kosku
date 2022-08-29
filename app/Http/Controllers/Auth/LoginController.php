@@ -31,12 +31,12 @@ class LoginController extends Controller
     // protected $redirectTo = RouteServiceProvider::HOME;
     protected function authenticated(Request $request, $user)
     {
-        if (!Auth::user()->status == 1) {
+        if (!Auth::user()->aktif == 1) {
             Auth::logout();
             return redirect()->route('login')->with('error', "Akun sudah tidak terdaftar!!");
         }
         if ($user->role_id == 3) {
-            return redirect()->route('home')->with('success', "Selamat datang");
+            return redirect('/')->with('success', "Selamat datang");
         }
         return redirect()->route('dashboard')->with('success', "Selamat datang");
     }

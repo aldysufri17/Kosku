@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kamar;
+use App\Models\Kos;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Rules\MatchOldPassword;
@@ -21,29 +23,38 @@ class DashboardController extends Controller
 
     public function indexPengguna()
     {
-        return view('frontend.home');
+        $kos = Kos::first();
+        $kamar = Kamar::all();
+        return view('frontend.home', compact('kos', 'kamar'));
     }
 
     public function profile()
     {
-        if (Auth::user()->role_id == 1) {
-            return view('backend.profile');
-        }
+        // if (Auth::user()->role_id == 1) {
+        //     return view('backend.profile');
+        // }
         return view('frontend.profile');
     }
 
     public function updateProfile(Request $request, User $user)
     {
+        $user_id = auth()->user()->id;
         #Validations
         $request->validate([
             'name'    => 'required',
-            'email'         => 'required|unique:users,email,' . $user->id . ',id',
+            'jk'    => 'required',
+            'pekerjaan'    => 'required',
+            'status'    => 'required',
+            'email'   => 'required|unique:users,email,' . $user_id . ',id',
         ]);
 
         #Update Profile Data
-        $user = User::whereId(auth()->user()->id)->update([
-            'name' => $request->name,
-            'email' => $request->email
+        $user = User::whereId($user_id)->update([
+            'name'      => $request->name,
+            'jk'        => $request->jk,
+            'pekerjaan' => $request->pekerjaan,
+            'status'    => $request->status,
+            'email'     => $request->email
         ]);
 
         if ($user) {

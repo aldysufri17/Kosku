@@ -8,7 +8,6 @@
             <tr>
                 <th>No</th>
                 <th>Nama</th>
-                <th>Tampilkan</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -17,13 +16,6 @@
             <tr>
                 <td>{{$key+1}}</td>
                 <td>{{$data->nama}}</td>
-                <td>
-                    @if ($data->status == 1)
-                    <span class="badge badge-success">Ya</span>
-                    @else
-                    <span class="badge badge-warning">Tidak</span>
-                    @endif
-                </td>
                 <td>
                     <div class="table-actions btn-group">
                         <a href="{{route('fasilitas.edit', $data->id)}}" class="table-action btn btn-primary mr-2"

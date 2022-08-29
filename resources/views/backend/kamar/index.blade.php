@@ -17,7 +17,7 @@
             @foreach ($kamar as $key=>$data)
             <tr>
                 <td>{{$key+1}}</td>
-                <td>{{$data->nomer}}</td>
+                <td>{{$data->pintu->nama}}</td>
                 <td>
                     @if ($data->tampil == 1)
                     <span class="badge badge-success">Ya</span>

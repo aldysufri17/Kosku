@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Fasilitas;
+use App\Models\Foto;
 use App\Models\Kamar;
-use App\Models\Peraturan;
+use App\Models\Pintu;
+use App\Models\Transaksi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KamarController extends Controller
 {
@@ -27,7 +29,9 @@ class KamarController extends Controller
      */
     public function create()
     {
-        return view('backend.kamar.add');
+        $kamar = Kamar::pluck('pintu_id');
+        $pintu = Pintu::whereNotIn('id', $kamar)->get();
+        return view('backend.kamar.add', compact('pintu'));
     }
 
     /**
@@ -39,46 +43,48 @@ class KamarController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nomer'          => 'required',
+            'pintu_id'          => 'required',
             'luas'              => 'required',
             'lebar'             => 'required',
-            'foto'              => 'required',
+            'cover'              => 'required',
+            'multiple'              => 'required',
             'deskripsi'         => 'required',
             'tampil'            => 'required',
             'harga'             => 'required',
             'status'             => 'required',
         ]);
-        $ukuran = $request->luas . " X " . $request->lebar;
 
         // Kamar kamar
-        if ($request->foto) {
-            // $items = array();
-            // foreach ($request->foto as $key => $value) {
-            $foto = $request->foto . "." . $request->foto->getClientOriginalExtension();
-            $destination = 'images/kamar/';
-            $request->foto->move($destination, $foto);
-            //     $items[] = $new_foto;
-            // }
-            // $foto = json_encode($items);
-            Kamar::create([
-                'nomer'          => $request->nomer,
-                'ukuran'            => $ukuran,
-                'foto'              => $foto,
-                'deskripsi'         => $request->deskripsi,
-                'tampil'            => $request->tampil,
-                'harga'             => $request->harga,
-                'status'            => 0
-            ]);
-        } else {
-            Kamar::create([
-                'nomer'          => $request->nomer,
-                'ukuran'            => $ukuran,
-                'deskripsi'         => $request->deskripsi,
-                'tampil'            => $request->tampil,
-                'harga'             => $request->harga,
-                'status'            => 0
+        $pintu = $request->pintu_id;
+        $kamarId = Kamar::max('id') + 1;
+        foreach ($request->multiple as $key => $value) {
+            $multiple_foto = $key . '_No' . " " . $pintu . "." . Auth::user()->name . "." . $value->getClientOriginalExtension();
+            $destination = 'images/kamar/multiple';
+            $value->move($destination, $multiple_foto);
+            Foto::create([
+                'kamar_id'  => $kamarId,
+                'nama'      => $multiple_foto,
             ]);
         }
+
+
+        $ukuran = $request->luas . " X " . $request->lebar . ' ' . "meter";
+
+        $cover = $request->cover;
+        $new_cover = 'No' . " " . $pintu . "." . Auth::user()->name . "." . $cover->getClientOriginalExtension();
+        $destination = 'images/kamar/';
+        $cover->move($destination, $new_cover);
+
+        Kamar::create([
+            'pintu_id'          => $pintu,
+            'ukuran'            => $ukuran,
+            'cover'              => $new_cover,
+            'deskripsi'         => $request->deskripsi,
+            'tampil'            => $request->tampil,
+            'harga'             => $request->harga,
+            'status'            => $request->status
+        ]);
+
         return redirect()->route('kamar.index')->with('success', 'Kamar Berhasil ditambah!.');
     }
 
@@ -90,7 +96,6 @@ class KamarController extends Controller
      */
     public function show(kamar $kamar)
     {
-        //
     }
 
     /**
@@ -102,8 +107,9 @@ class KamarController extends Controller
     public function edit($id)
     {
         $kamar = Kamar::whereId($id)->first();
-        $foto = json_decode($kamar->foto);
-        return view('backend.kamar.edit', compact('kamar', 'foto'));
+        $no = Kamar::where('id', '!=', $id)->pluck('pintu_id');
+        $pintu = Pintu::whereNotIn('id', $no)->get();
+        return view('backend.kamar.edit', compact('kamar', 'pintu'));
     }
 
     /**
@@ -113,13 +119,64 @@ class KamarController extends Controller
      * @param  \App\Models\kamar  $kamar
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, kamar $kamar)
+    public function update(Request $request, $id)
     {
-        dd($request);
-        $a1 = $request->update;
+        $request->validate([
+            'pintu_id'          => 'required',
+            'ukuran'            => 'required',
+            'deskripsi'         => 'required',
+            'tampil'            => 'required',
+            'harga'             => 'required',
+            'status'            => 'required',
+        ]);
 
-        $a2 = $request->foto;
-        array_merge($a1, $a2);
+        $pintu = $request->pintu_id;
+        if ($request->multiple) {
+            foreach ($request->multiple as $key => $value) {
+                $multiple_foto = $key . '_No' . " " . $pintu . "." . Auth::user()->name . "." . $value->getClientOriginalExtension();
+                $destination = 'images/kamar/multiple';
+                $value->move($destination, $multiple_foto);
+                Foto::create([
+                    'kamar_id'  => $id,
+                    'nama'      => $multiple_foto,
+                ]);
+            }
+        }
+
+
+        if ($request->cover) {
+            $kamar = Kamar::whereId($id)->first();
+            if ($request->status == 1) {
+                if (file_exists(public_path() . '/images/kamar' . $kamar->cover)) {
+                    unlink(public_path() . '/images/kamar' . $kamar->cover);
+                }
+            }
+            $cover = $request->cover;
+            $new_cover = 'No' . " " . $pintu . "." . Auth::user()->name . "." . $cover->getClientOriginalExtension();
+            $destination = 'images/kamar/';
+            $cover->move($destination, $new_cover);
+            Kamar::whereId($id)->update([
+                'pintu_id'          => $pintu,
+                'ukuran'            => $request->ukuran,
+                'cover'             => $new_cover,
+                'deskripsi'         => $request->deskripsi,
+                'tampil'            => $request->tampil,
+                'harga'             => $request->harga,
+                'status'            => $request->status
+            ]);
+        } else {
+            Kamar::whereId($id)->update([
+                'pintu_id'          => $pintu,
+                'ukuran'            => $request->ukuran,
+                'deskripsi'         => $request->deskripsi,
+                'tampil'            => $request->tampil,
+                'harga'             => $request->harga,
+                'status'            => $request->status
+            ]);
+        }
+
+
+        return redirect()->route('kamar.index')->with('success', 'Data Kamar Berhasil dibaharui!.');
     }
 
     /**
@@ -128,8 +185,14 @@ class KamarController extends Controller
      * @param  \App\Models\kamar  $kamar
      * @return \Illuminate\Http\Response
      */
-    public function destroy(kamar $kamar)
+    public function destroy($id, Request $request)
     {
-        //
+        $Kamar = Transaksi::where('kamar_id', $request->delete_id)->where('status', '!=', 0)->get();
+        if ($Kamar->isNotEmpty()) {
+            return redirect()->back()->with('error', 'Kamar Sedang digunakan!.');
+        } else {
+            Pintu::whereId($request->delete_id)->delete();
+            return redirect()->back()->with('success', 'Kamar Pintu Berhasil dihapus!.');
+        }
     }
 }

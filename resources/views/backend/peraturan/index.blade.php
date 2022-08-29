@@ -1,14 +1,13 @@
 @extends('backend.layouts.app')
 @section('title','Daftar Peraturan')
 @section('content')
-<x-page-index title="Peraturan" buttonLabel="Tambah Peraturan" routeCreate="peraturan/create">
+<x-page-index title="Peraturan" buttonLabel="Tambah Peraturan" routeCreate="peraturan.create">
     @if ($peraturan->IsNotEmpty())
     <table id="dataTable" class="table table-striped table-borderless responsive nowrap" style="width:100%">
         <thead>
             <tr>
                 <th>No</th>
                 <th>Nama</th>
-                <th>Status</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -17,13 +16,6 @@
             <tr>
                 <td>{{$key+1}}</td>
                 <td>{{$data->nama}}</td>
-                <td>
-                    @if ($data->status == 1)
-                    <span class="badge badge-success">Ya</span>
-                    @else
-                    <span class="badge badge-warning">Tidak</span>
-                    @endif
-                </td>
                 <td>
                     <div class="table-actions btn-group">
                         <a href="{{route('peraturan.edit', $data->id)}}" class="table-action btn btn-primary mr-2"

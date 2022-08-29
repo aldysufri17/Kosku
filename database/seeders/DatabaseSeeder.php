@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             KosSeeder::class,
-            TransaksiSeeder::class,
+            // TransaksiSeeder::class,
         ]);
     }
 }

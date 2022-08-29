@@ -274,11 +274,11 @@ h6 {
 .navbar>ul>li>a:before {
   content: "";
   position: absolute;
-  width: 100%;
+  width: 80%;
   height: 2px;
   bottom: -5px;
   left: 0;
-  background-color: #f51c1c;
+  background-color: #ffffff;
   visibility: hidden;
   width: 0px;
   transition: all 0.3s ease-in-out 0s;
@@ -489,11 +489,6 @@ h6 {
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
-#hero {
-  background: url("../img/hero-bg.jpg") top center;
-  background-size: cover;
-}
-
 #hero .carousel-container {
   display: flex;
   justify-content: center;
@@ -2448,7 +2443,6 @@ section {
   color: #f6b024;
 }
 
-
 /*=============== SCROLL BAR ===============*/
 ::-webkit-scrollbar {
   width: .6rem;
@@ -2469,6 +2463,10 @@ section {
   cursor: pointer;
 }
 
+.card-item:hover{
+  transform: scale(1.1);
+}
+
 
 .header {
   display: grid;
@@ -2480,7 +2478,7 @@ section {
 
 .hero {
   grid-area: hero;
-  min-height: 300px;
+  min-height: 400px;
   /* background-repeat: no-repeat; */
   background-size: cover;
   background-position: center;
@@ -2654,4 +2652,88 @@ section {
   display: none;
   padding: 6px 12px;
   border-top: none;
+}
+
+.profilepic {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+
+.profilepic:hover .profilepic__image {
+  opacity: .5;
+}
+
+.profilepic__image {
+  object-fit: cover;
+  opacity: 1;
+  transition: opacity .2s ease-in-out;
+}
+
+.profilepic__content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  opacity: 0;
+  transition: opacity .2s ease-in-out;
+}
+
+.profilepic__icon {
+  color: rgb(0, 0, 0);
+  padding-bottom: 8px;
+}
+
+
+
+.profilepic__text {
+  text-transform: uppercase;
+  font-size: 12px;
+  width: 50%;
+  color: #000;
+  text-align: center;
+}
+
+.img-content{
+  width:100%; 
+  height:200px;
+  background-size: cover; 
+  background-repeat: no-repeat; 
+  background-position: center;
+}
+
+.img-proc {
+  position: relative;
+  overflow: hidden;
+}
+
+.img-proc:hover .img-proc__content {
+  opacity: 1;
+  cursor: pointer;
+
+}
+
+
+.img-proc__content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  opacity: 0;
+  transition: opacity .2s ease-in-out;
 }

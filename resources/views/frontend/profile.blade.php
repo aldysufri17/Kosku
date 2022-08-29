@@ -89,6 +89,67 @@
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+
+                        <div class="col-md-4">
+                            <label class="labels">Jenis Kelamin</label>
+                            <select class="form-select form-control-user @error('jk') is-invalid @enderror" name="jk">
+                                <option selected disabled>Select Jenis Kelamin</option>
+                                <option value="L"
+                                    {{old('jk') ? ((old('jk') == "L") ? 'selected' : '') : ((auth()->user()->jk == "L") ? 'selected' : '')}}>
+                                    Laki-Laki</option>
+                                <option value="P"
+                                    {{old('jk') ? ((old('jk') == "P") ? 'selected' : '') : ((auth()->user()->jk == "P") ? 'selected' : '')}}>
+                                    Perempuan</option>
+                            </select>
+
+                            @error('jk')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-2">
+
+                        <div class="col-md-4">
+                            <label class="labels">Pekerjaan</label>
+                            <select class="form-select form-control-user @error('pekerjaan') is-invalid @enderror"
+                                name="pekerjaan">
+                                <option selected disabled>Select Jenis Pekerjaan</option>
+                                <option value="Mahasiswa"
+                                    {{old('pekerjaan') ? ((old('pekerjaan') == "Mahasiswa") ? 'selected' : '') : ((auth()->user()->pekerjaan == "Mahasiswa") ? 'selected' : '')}}>
+                                    Mahasiswa</option>
+                                <option value="Bekerja"
+                                    {{old('pekerjaan') ? ((old('pekerjaan') == "Bekerja") ? 'selected' : '') : ((auth()->user()->pekerjaan == "Bekerja") ? 'selected' : '')}}>
+                                    Bekerja</option>
+                                <option value="Lainnya"
+                                    {{old('pekerjaan') ? ((old('pekerjaan') == "Lainnya") ? 'selected' : '') : ((auth()->user()->pekerjaan == "Lainnya") ? 'selected' : '')}}>
+                                    Perempuan</option>
+                            </select>
+
+                            @error('pekerjaan')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-md-4">
+                            <label class="labels">Status</label>
+                            <select class="form-select form-control-user @error('status') is-invalid @enderror"
+                                name="status">
+                                <option selected disabled>Select Jenis Status</option>
+                                <option value="1"
+                                    {{old('status') ? ((old('status') == "1") ? 'selected' : '') : ((auth()->user()->status == "1") ? 'selected' : '')}}>
+                                    Belum Kawin</option>
+                                <option value="2"
+                                    {{old('status') ? ((old('status') == "2") ? 'selected' : '') : ((auth()->user()->status == "2") ? 'selected' : '')}}>
+                                    Sudah Kawin</option>
+                                <option value="3"
+                                    {{old('status') ? ((old('status') == "3") ? 'selected' : '') : ((auth()->user()->status == "3") ? 'selected' : '')}}>
+                                    Kawin Memiliki Anak</option>
+                            </select>
+
+                            @error('status')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
                     <div class="mt-5 text-center">
                         <button class="btn btn-primary profile-button" type="submit">Simpan Profile</button>

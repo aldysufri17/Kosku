@@ -5,26 +5,20 @@
           <!-- Uncomment below if you prefer to use an image logo -->
           <nav id="navbar" class="navbar">
               <ul>
-                  <li><a class="nav-link scrollto" href="/">Home</a></li>
-                  <li><a class="nav-link scrollto" href="/daftar">Daftar</a></li>
-                  <li><a class="nav-link scrollto" href="/status">Status</a></li>
-                  <li><a class="nav-link scrollto" href="/booking">Booking</a></li>
-                  <li><a class="nav-link scrollto" href="/favorit">Favorit</a></li>
-                  <li><a class="nav-link scrollto" href="/bukti">bukti</a></li>
+                  <li><a class="nav-link scrollto {{Request::path() == '/' ? 'active':''}}" href="/">Home</a></li>
+                  <li><a class="nav-link scrollto {{Request::path() == 'daftar' ? 'active':''}}" href="/daftar">Daftar
+                    Kamar</a></li>
                   @if (!Auth::check())
                   <li><a class="nav-link scrollto" href="{{route('login')}}">Login</a></li>
                   @else
-                  {{-- <li class="dropdown"><a href="#"><span>Data Audit</span> <i class="bi bi-chevron-down"></i></a>
-                      <ul>
-                          <li><a href="{{route('audit.input')}}">Tambah Data Audit</a></li>
-                          <li><a href="#">Lihat Statistik</a></li>
-                      </ul>
-                  </li> --}}
+                  <li><a class="nav-link scrollto {{Request::path() == 'favorit' ? 'active':''}}"
+                          href="/favorit">Favorit</a></li>
                   <li class="dropdown" style="width: 30px"><a href="#"><img class="my-2" style="border-radius: 50%"
                               width="30px"
                               src="{{ asset(auth()->user()->foto ? 'images/profil/'. auth()->user()->foto : 'backend/assets/img/avatar/avatar-1.png') }}"></a>
                       <ul>
                           <li><a href="{{route('profile.detail')}}">Profile</a></li>
+                          <li><a href="{{route('transaksi.saya')}}">Transaksi Saya</a></li>
                           <li><a class="nav-link scrollto" href="{{ route('logout') }}"
                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                           </li>

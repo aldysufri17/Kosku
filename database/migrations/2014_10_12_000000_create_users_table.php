@@ -20,9 +20,14 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('jk', ['L', 'P']);
+            $table->enum('pekerjaan', ['Mahasiswa', 'Bekerja', 'Lainnya']);
+            $table->enum('status', ['1', '2', '3']);
             $table->string('foto')->nullable();
+            $table->string('foto_ktp')->nullable();
+            $table->string('foto_kk')->nullable();
             $table->string('telp');
-            $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('aktif')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
