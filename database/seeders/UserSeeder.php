@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
         $user = User::create([
             'name' => 'Pemilik',
             'email' => 'pemilik@admin.com',
-            'role_id' => 2,
+            'role_id' => 1,
             'status' => '1',
             'aktif'    => 1,
             'foto_kk' => 'kk.jpg',
@@ -35,7 +35,7 @@ class UserSeeder extends Seeder
         $user = User::create([
             'name' => 'Pengunjung',
             'email' => 'pengunjung@admin.com',
-            'role_id' => 3,
+            'role_id' => 2,
             'status' => '1',
             'telp'  => '08567567456456',
             'jk'    => 'L',

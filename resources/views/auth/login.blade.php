@@ -50,9 +50,9 @@
                                         <div class="d-block">
                                             <label for="password" class="control-label">Password</label>
                                             <div class="float-right">
-                                                <a href="auth-forgot-password.html" class="text-small">
+                                                {{-- <a href="auth-forgot-password.html" class="text-small">
                                                     Forgot Password?
-                                                </a>
+                                                </a> --}}
                                             </div>
                                         </div>
                                         <input id="password" type="password"
@@ -75,14 +75,10 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block mb-3" tabindex="4">
                                             Login
                                         </button>
-                                        @if (Route::has('password.request'))
-                                        <a class="btn btn-link" href="{{ route('password.request') }}">
-                                            {{ __('Forgot Your Password?') }}
-                                        </a>
-                                        @endif
+                                        <span class="text-center">Belum punya akun? <a href="{{route('register')}}">Daftar Sekarang</a></span>
                                     </div>
                                 </form>
                             </div>

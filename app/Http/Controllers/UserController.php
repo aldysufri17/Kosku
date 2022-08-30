@@ -54,33 +54,15 @@ class UserController extends Controller
             'telp'          =>  'required',
         ]);
 
-        // $foto = Transaksi::whereId($request->id)->first();
-        // if (file_exists(public_path() . '/images/kk' . $foto->foto_kk)) {
-        //     unlink(public_path() . '/images/kk' . $foto->foto_kk);
-        // }
-        // $kk = $request->kk;
-        // $new_kk = 'KK' . "-" . Auth::user()->name . "." . $kk->getClientOriginalExtension();
-        // $destination = 'images/kk';
-        // $kk->move($destination, $new_kk);
-
-
-        // if (file_exists(public_path() . '/images/ktp' . $foto->foto_ktp)) {
-        //     unlink(public_path() . '/images/ktp' . $foto->foto_ktp);
-        // }
-        // $ktp = $request->ktp;
-        // $new_ktp = 'KTP' . "-" . Auth::user()->name . "." . $ktp->getClientOriginalExtension();
-        // $destination = 'images/ktp';
-        // $ktp->move($destination, $new_ktp);
-
         $user = User::create([
             'name'          => $request->name,
             'email'         => $request->email,
             'role_id'       => $request->role,
             'status'        => $request->status,
             'aktif'         => $request->aktif,
-            'pekerjaan'      => $request->pekerjaan,
-            'jk'             => $request->jk,
-            'telp'             => $request->telp,
+            'pekerjaan'     => $request->pekerjaan,
+            'jk'            => $request->jk,
+            'telp'          => $request->telp,
             'password'      => bcrypt('password')
         ]);
 

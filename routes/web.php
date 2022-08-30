@@ -54,14 +54,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::group(['middleware' => ['role:pemilik']], function () {
         Route::get('/dashboard', [DashboardController::class, 'indexAdmin'])->name('dashboard');
-        // Profile Routes
-        Route::prefix('profile')->name('profile.')->middleware('auth')->group(function () {
-            Route::get('/', [DashboardController::class, 'profile'])->name('detail');
-            Route::post('/update', [DashboardController::class, 'updateProfile'])->name('update');
-            Route::post('/update/ktm', [DashboardController::class, 'updateKTM'])->name('ktm');
-            Route::post('/update/foto', [DashboardController::class, 'updateFoto'])->name('foto');
-            Route::post('/change-password', [DashboardController::class, 'changePassword'])->name('change-password');
-        });
 
         // Pengguna
         Route::resource('pengguna', UserController::class);
@@ -98,6 +90,14 @@ Route::middleware(['auth'])->group(function () {
 
     Route::group(['middleware' => ['role:pengunjung']], function () {
 
+        // Profile Routes
+        Route::prefix('profile')->name('profile.')->middleware('auth')->group(function () {
+            Route::get('/', [DashboardController::class, 'profile'])->name('detail');
+            Route::post('/update', [DashboardController::class, 'updateProfile'])->name('update');
+            Route::post('/update/ktm', [DashboardController::class, 'updateKTM'])->name('ktm');
+            Route::post('/update/foto', [DashboardController::class, 'updateFoto'])->name('foto');
+            Route::post('/change-password', [DashboardController::class, 'changePassword'])->name('change-password');
+        });
 
         Route::get('/detail/kamar/{id}', [FrontendController::class, 'detailKamar'])->name('detail.kamar');
         Route::get('/add-favorit/{id}', [FrontendController::class, 'addFavorit'])->name('favorit.add');
