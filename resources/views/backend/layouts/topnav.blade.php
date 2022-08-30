@@ -9,9 +9,6 @@
             <div class="d-sm-none d-lg-inline-block">Hi, {{auth()->user()->name}}</div>
         </a>
         <div class="dropdown-menu dropdown-menu-right">
-            <a href="#" class="dropdown-item has-icon">
-                <i class="fa fa-user"></i> Profile
-            </a>
             <div class="dropdown-divider"></div>
             <form id="logout" action="{{ route('logout') }}" method="POST">
                 {{ csrf_field() }}

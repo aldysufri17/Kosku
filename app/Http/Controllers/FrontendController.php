@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Fasilitas;
 use App\Models\Kamar;
-use App\Models\Kos;
 use App\Models\Peraturan;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
@@ -15,9 +14,15 @@ class FrontendController extends Controller
     public function detailKamar($id)
     {
         $kamar = Kamar::whereId($id)->with('foto')->first();
-        $transaksi = Transaksi::where('kamar_id', $id)
-            ->where('user_id', Auth::user()->id)
-            ->first();
+        if (Auth::check()) {
+            $transaksi = Transaksi::where('kamar_id', $id)
+                ->where('user_id', Auth::user()->id)
+                ->first();
+        } else {
+            $transaksi = Transaksi::where('kamar_id', $id)
+                ->first();
+        }
+
         $fasilitas = Fasilitas::all();
         $peraturan = Peraturan::all();
         return view('frontend.detail-kamar', compact('kamar', 'fasilitas', 'peraturan', 'transaksi'));

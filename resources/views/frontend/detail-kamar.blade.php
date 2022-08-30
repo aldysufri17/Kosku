@@ -53,17 +53,17 @@
                 <div class="col">
                     <div class="float-end">
                         @if ($transaksi)
-                        @if ($transaksi->status == 0)
-                        <form action="{{route('destroy.transaksi')}}" method="post">
-                            @csrf
-                            <input type="hidden" name="delete_id" value="{{$transaksi->id}}">
-                            <button type="submit" style="border: none"><span class="badge p-2 text-dark bg-light"><i
-                                        class="bi bi-heart-fill text-danger"></i> Hapus</span></button>
-                        </form>
-                        @else
-                        <a href="{{route('favorit.add',$kamar->id)}}"><span class="badge p-2 text-dark bg-light"><i
-                                    class="bi bi-heart-fill text-secondary"></i> Simpan</span></a>
-                        @endif
+                            @if ($transaksi->status == 0)
+                            <form action="{{route('destroy.transaksi')}}" method="post">
+                                @csrf
+                                <input type="hidden" name="delete_id" value="{{$transaksi->id}}">
+                                <button type="submit" style="border: none"><span class="badge p-2 text-dark bg-light"><i
+                                            class="bi bi-heart-fill text-danger"></i> Hapus</span></button>
+                            </form>
+                            @else
+                            <a href="{{route('favorit.add',$kamar->id)}}"><span class="badge p-2 text-dark bg-light"><i
+                                        class="bi bi-heart-fill text-secondary"></i> Simpan</span></a>
+                            @endif
                         @else
                         <a href="{{route('favorit.add',$kamar->id)}}"><span class="badge p-2 text-dark bg-light"><i
                                     class="bi bi-heart-fill text-secondary"></i> Simpan</span></a>

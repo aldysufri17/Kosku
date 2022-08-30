@@ -45,6 +45,8 @@ Route::get('/daftar', function () {
 
     return view('frontend.daftar-kamar', compact('kamar'));
 });
+Route::get('/detail/kamar/{id}', [FrontendController::class, 'detailKamar'])->name('detail.kamar');
+
 
 Auth::routes();
 
@@ -99,7 +101,6 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/change-password', [DashboardController::class, 'changePassword'])->name('change-password');
         });
 
-        Route::get('/detail/kamar/{id}', [FrontendController::class, 'detailKamar'])->name('detail.kamar');
         Route::get('/add-favorit/{id}', [FrontendController::class, 'addFavorit'])->name('favorit.add');
         Route::get('/form/pengajuan/{id}', [FrontendController::class, 'formPengajuan'])->name('form.pengajuan');
         Route::post('/update/pengajuan/{id}', [FrontendController::class, 'updatePengajuan'])->name('update.pengajuan');
