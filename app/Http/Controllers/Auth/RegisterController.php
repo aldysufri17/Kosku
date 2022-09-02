@@ -97,7 +97,7 @@ class RegisterController extends Controller
             'foto_ktp' => $new_ktp,
             'foto_ktp' => $new_kk,
             'aktif' => 0,
-            'role_id' => 2,
+            'role_id' => 3,
             'password' => Hash::make($data['password']),
         ]);
         $user->assignRole(2);
