@@ -29,6 +29,6 @@
     <link href="{{asset('frontend/assets/css/style.css')}}" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="{{asset('css/custom.css')}}" rel="stylesheet">
+    <link href="{{asset('css/app.css')}}" rel="stylesheet">
     @stack('styles')
 </head>

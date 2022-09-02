@@ -12,7 +12,9 @@
                 <th>Nomor Kamar</th>
                 <th>Tanggal Masuk</th>
                 <th>Sisa Hari</th>
+                @role('pemilik')
                 <th>Aksi</th>
+                @endrole
             </tr>
         </thead>
         <tbody>
@@ -37,6 +39,7 @@
                     <span class="badge badge-danger">Sisa Sewa {{$d}} Hari</span>
                     @endif
                 </td>
+                @role('pemilik')
                 <td>
                     <div class="table-actions btn-group">
                         <a href="{{route('transaksi.show', $data->id)}}" class="table-action btn btn-info mr-2"
@@ -65,6 +68,7 @@
                         @endif
                     </div>
                 </td>
+                @emdrole
             </tr>
             @endforeach
         </tbody>

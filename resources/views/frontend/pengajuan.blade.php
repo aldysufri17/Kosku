@@ -242,8 +242,8 @@
                     <hr>
                     <div class="text-center mt-3">
                         <h2>Transaksi Anda Berhasil dilakukan.</h2>
-                        <p><span class="text-danger">*</span> Anda dapat mengunduh surat sewa</p>
-                        <a href="/surat" class="btn btn-success"><i class="bi bi-filetype-pdf"></i> Surat Sewa</a>
+                        {{-- <p><span class="text-danger">*</span> Anda dapat mengunduh surat sewa</p>
+                        <a href="/surat" class="btn btn-success"><i class="bi bi-filetype-pdf"></i> Surat Sewa</a> --}}
                     </div>
                 </div>
                 @endif

@@ -3,14 +3,14 @@
 
 @include('frontend.layouts.head')
 
-<body>
+<body style="background-color: #eee;">
     @include('frontend.layouts.header')
 
     <main id="main">
         @yield('content')
     </main>
     
-    @include('frontend.layouts.footer')
+    {{-- @include('frontend.layouts.footer') --}}
     <div id="preloader"></div>
 
     <!-- Vendor JS Files -->
@@ -22,6 +22,8 @@
     <script src="{{asset('frontend/assets/vendor/swiper/swiper-bundle.min.js')}}"></script>
     <script src="{{asset('frontend/assets/vendor/php-email-form/validate.js')}}"></script>
     <!-- Template Main JS File -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
     <script src="{{asset('frontend/assets/js/main.js')}}"></script>
     @stack('scripts')
 </body>

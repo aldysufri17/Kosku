@@ -1,6 +1,7 @@
 @extends('frontend.layouts.app')
 @section('title', 'Trasaksi')
 @section('content')
+<x-alert />
 <!-- ======= Breadcrumbs Section ======= -->
 <div class="" style="background-color: #eee; padding-bottom:80px">
     <section class="breadcrumbs shadow-sm" style="background-color: #eee;">
@@ -24,10 +25,10 @@
                 <div class="card-body p-3">
                     @foreach ($transaksi as $item)
                     <div class="card rounded-3 mb-4">
-                        <div class="">
+                        {{-- <div class="">
                             <a href="/surat" title="Surat" class="btn btn-success float-end"><i
                                     class="bi bi-filetype-pdf"> Unduh Bukti Peminjaman</i></a>
-                        </div>
+                        </div> --}}
                         <div class="card-body p-4">
                             <div class="row d-flex justify-content-between align-items-center">
                                 <div class="col col-lg-4">
@@ -157,6 +158,7 @@
     </section>
 </div>
 
+@if ($transaksi->isNotEmpty())
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -179,6 +181,8 @@
         </div>
     </div>
 </div>
+@endif
+
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content bgdark shadow-2-strong ">

@@ -1,6 +1,7 @@
 @extends('frontend.layouts.app')
 @section('title', 'Profile')
 @section('content')
+<x-alert />
 <div class="" style="background-color: #eee;">
     <section class="breadcrumbs shadow-sm" style="background-color: #eee;">
         <div class="container">
@@ -54,3 +55,4 @@
         </div>
     </section>
 </div>
+@endsection

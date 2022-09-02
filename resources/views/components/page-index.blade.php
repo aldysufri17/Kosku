@@ -15,10 +15,12 @@
                 @if ($create == null)
                 <div class="card-header-action">
                     <div>
+                        @role('pemilik')
                         <a href="{{ route($routeCreate) }}" class="btn btn-primary create-button"
                             style="border-radius: 0px !important">
                             {{ $buttonLabel }}
                         </a>
+                        @endrole
                     </div>
                 </div>
                 @endif

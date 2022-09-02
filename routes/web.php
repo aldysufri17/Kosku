@@ -17,6 +17,7 @@ use App\Models\{
     Kos,
     Transaksi
 };
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{
     Auth,
     Route
@@ -27,6 +28,15 @@ Route::get('/', function () {
     $kamar = Kamar::where('status', 0)->where('tampil', 1)->take(4)->get();
     return view('frontend.home', compact('kos', 'kamar'));
 });
+
+Route::get('/tracking', function (Request $request) {
+    $kode = $request->kode;
+    $tracking = Transaksi::where('kode', $kode)->whereBetween('status', [1, 4])->value('status');
+
+    return response()->json([
+        'output' => $tracking
+    ]);
+})->name('tracking');
 
 Route::get('/daftar', function () {
     if (Auth::check()) {
@@ -54,7 +64,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/transaksi-saya/delete', [FrontendController::class, 'transaksiDestroy'])->name('destroy.transaksi');
 
-    Route::group(['middleware' => ['role:pemilik']], function () {
+    Route::group(['middleware' => ['role:pemilik|admin']], function () {
         Route::get('/dashboard', [DashboardController::class, 'indexAdmin'])->name('dashboard');
 
         // Pengguna
@@ -107,7 +117,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/update/pembayaran', [FrontendController::class, 'updatePembayaran'])->name('update.pembayaran');
         Route::get('/transaksi-saya', [FrontendController::class, 'transaksiSaya'])->name('transaksi.saya');
         Route::get('/favorit', function () {
-            $transaksi = Transaksi::where('status', 0)->paginate(10);
+            $transaksi = Transaksi::where('status', 0)->where('user_id', Auth::user()->id)->paginate(10);
             return view('frontend.favorit', compact('transaksi'));
         });
     });

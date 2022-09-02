@@ -11,7 +11,9 @@
                 <th>Nama</th>
                 <th>Nomor Kamar</th>
                 <th>Durasi</th>
+                @role('pemilik')
                 <th>Aksi</th>
+                @endrole
             </tr>
         </thead>
         <tbody>
@@ -22,6 +24,7 @@
                 <td>{{$data->user->name}}</td>
                 <td>{{$data->kamar->pintu->nama}}</td>
                 <td>{{$data->durasi}} Bulan</td>
+                @role('pemilik')
                 <td>
                     <div class="table-actions btn-group">
                         <a href="{{route('transaksi.show', $data->id)}}" class="table-action btn btn-info mr-2" data-toggle="tooltip" title="Detail">
@@ -52,6 +55,7 @@
                         @endif
                     </div>
                 </td>
+                @endrole
             </tr>
             @endforeach
         </tbody>

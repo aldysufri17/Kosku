@@ -1,6 +1,7 @@
 @extends('frontend.layouts.app')
 @section('title', 'Profile')
 @section('content')
+<x-alert />
 <!-- ======= Breadcrumbs Section ======= -->
 <section class="breadcrumbs">
     <div class="container">

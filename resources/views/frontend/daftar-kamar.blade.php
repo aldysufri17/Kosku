@@ -1,6 +1,7 @@
 @extends('frontend.layouts.app')
 @section('title', 'Daftar Kamar')
 @section('content')
+<x-alert />
 <!-- ======= Breadcrumbs Section ======= -->
 <div class="" style="background-color: #eee; padding-bottom: 130px;">
     <section class="breadcrumbs" style="background-color: #eee;">
@@ -13,26 +14,7 @@
                 </ol>
             </div>
         </div>
-    </section><!-- Breadcrumbs Section -->
-    {{-- <div class="container bg-light p-4 mt-5" style="border-radius: 25px">
-        <div class="row justify-content-center">
-            <div class="col-sm">
-                <label>Rentan Harga</label>
-                <input autocomplete="off" type="text"
-                    class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleName"
-                    placeholder="Nama" name="name" value="{{ old('name') }}">
-            </div>
-            <div class="col-sm">
-                <label></label>
-                <input autocomplete="off" type="text"
-                    class="form-control form-control-user @error('name') is-invalid @enderror" id="exampleName"
-                    placeholder="Nama" name="name" value="{{ old('name') }}">
-            </div>
-            <div class="col-sm">
-                <button class="btn btn-primary mt-4" style="width: 100%;">Cari</button>
-            </div>
-        </div>
-    </div> --}}
+    </section>
     <section>
         <div class="container-fluid">
             <div class="row justify-content-center">

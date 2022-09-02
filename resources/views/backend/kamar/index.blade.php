@@ -10,7 +10,9 @@
                 <th>Nomor Kamar</th>
                 <th>Tampilkan</th>
                 <th>Status</th>
+                @role('pemilik')
                 <th>Aksi</th>
+                @endrole
             </tr>
         </thead>
         <tbody>
@@ -32,6 +34,7 @@
                     <span class="badge badge-success">Dihuni</span>
                     @endif
                 </td>
+                @role('pemilik')
                 <td>
                     <div class="table-actions btn-group">
                         <a href="{{route('kamar.edit', $data->id)}}" class="table-action btn btn-primary mr-2"
@@ -44,6 +47,7 @@
                         </button>
                     </div>
                 </td>
+                @endrole
             </tr>
             @endforeach
         </tbody>
