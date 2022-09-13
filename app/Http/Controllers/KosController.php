@@ -22,24 +22,34 @@ class KosController extends Controller
             'telp'         => 'required',
             'alamat'       => 'required',
             'deskripsi'    => 'required',
-            'cover'        => 'required',
         ]);
-        $kos = Kos::whereid($id)->first();
-        if (file_exists(public_path() . '/images/' . $kos->cover)) {
-            unlink(public_path() . '/images/' . $kos->cover);
+        if ($request->cover) {
+            $kos = Kos::whereid($id)->first();
+            if (file_exists(public_path() . '/images/' . $kos->cover)) {
+                unlink(public_path() . '/images/' . $kos->cover);
+            }
+            $cover = $request->cover;
+            $new_foto = 'hero-bg' . "." . $cover->getClientOriginalExtension();
+            $destination = 'images/';
+            $cover->move($destination, $new_foto);
+            Kos::whereId($id)->update([
+                'nama' => $request->nama,
+                'email' => $request->email,
+                'telp' => $request->telp,
+                'alamat' => $request->alamat,
+                'deskripsi' => $request->deskripsi,
+                'cover' => $new_foto
+            ]);
+        } else {
+            Kos::whereId($id)->update([
+                'nama' => $request->nama,
+                'email' => $request->email,
+                'telp' => $request->telp,
+                'alamat' => $request->alamat,
+                'deskripsi' => $request->deskripsi,
+            ]);
         }
-        $cover = $request->cover;
-        $new_foto = 'hero-bg' . "." . $cover->getClientOriginalExtension();
-        $destination = 'images/';
-        $cover->move($destination, $new_foto);
-        Kos::whereId($id)->update([
-            'nama' => $request->nama,
-            'email' => $request->email,
-            'telp' => $request->telp,
-            'alamat' => $request->alamat,
-            'deskripsi' => $request->deskripsi,
-            'cover' => $new_foto
-        ]);
+
         return redirect()->route('kos.index')->with('success', 'Informasi Kos Berhasil diubah!.');
     }
 }
